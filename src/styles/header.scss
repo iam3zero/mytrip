@@ -1,0 +1,60 @@
+@import './variables';
+@import './_mixins';
+header{
+    padding: 20px 30px;
+    background-color: $white;
+    border-bottom: 1px solid $light-gray;
+    @include flex-center-justcontent-spacebetween;
+    h1{
+        a{
+            @include flex-center;
+            font-size: 40px;
+            color: $gray;
+            span{
+                font-size: 30px;
+                color: $primary;
+                padding-left: 10px;
+                font-family: "Luckiest Guy", cursive;
+                /* font-family: 'OneStoreMobileGothicTitleFont'; */
+                font-weight: 400}
+        }
+    }
+    nav{
+        ul{
+            @include flex-center;
+            gap: 20px;
+            li{
+                a{
+                    font-weight: 300;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .loginWrap{
+        position: absolute;
+        right: 30px;
+        top: 10px;
+        font-size: 12px;
+        a{
+            margin-left: 15px;
+            color: $gray;
+
+        }
+        .logoutBtn{
+            background: none;
+            border: none;
+            position: relative;
+            color: $primary;
+        }
+        .in{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    }
+
+
+
+    
+}

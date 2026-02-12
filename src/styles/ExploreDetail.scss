@@ -1,0 +1,44 @@
+.explore-detail {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+
+  img {
+    width: 100%;
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  p {
+    color: #555;
+    line-height: 1.6;
+  }
+}
+.info{
+  li{
+    line-height: 1.5;
+    strong{
+    display: inline-block;
+    width: 80px;
+    font-weight: 600;
+  }
+  }
+}
+.likebtn {
+  padding: 8px 13px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #ff4d6d;
+  color: white;
+  margin-top: 10px;
+}
+
+.likebtn.liked {
+  background: #999;
+}
