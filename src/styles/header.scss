@@ -1,5 +1,5 @@
-@import './variables';
-@import './_mixins';
+@use "./variables.scss" as *;
+@use './_mixins' as *;
 header{
     padding: 20px 30px;
     background-color: $white;
@@ -12,7 +12,7 @@ header{
             color: $gray;
             span{
                 font-size: 30px;
-                color: $primary;
+                /* color: $primary; */
                 padding-left: 10px;
                 font-family: "Luckiest Guy", cursive;
                 /* font-family: 'OneStoreMobileGothicTitleFont'; */
@@ -45,7 +45,7 @@ header{
             background: none;
             border: none;
             position: relative;
-            color: $primary;
+            /* color: $primary; */
         }
         .in{
             display: flex;

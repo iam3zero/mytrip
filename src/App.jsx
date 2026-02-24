@@ -1,4 +1,6 @@
 import { createContext, useEffect, useState } from "react";
+import AuthProvider from "./context/AuthContext";
+import TripProvider from "./context/TripContext";
 import { getTravelSpots } from "./api/travelApi";
 import {Routes, Route} from 'react-router-dom'
 import Home from './pages/Home.jsx'
@@ -8,11 +10,9 @@ import Profile from './pages/Profile.jsx'
 import Community from './pages/Community.jsx'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
-import ExploreDetail from './components/ExploreDetail.jsx'
-import AuthProvider from "./context/AuthContext";
-import TripProvider from "./context/TripContext";
-import Signup from "./pages/Signup.jsx";
 import Login from "./pages/Login.jsx";
+import Signup from "./pages/Signup.jsx";
+import ExploreDetail from './components/ExploreDetail.jsx'
 
 import './App.scss'
 
@@ -50,7 +50,7 @@ function App() {
             <Route path="/mytrip" element={<Mytrip />} />
             <Route path="/community" element={<Community />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/Login" element={<Login />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
           </Routes>
           <Footer />

@@ -3,14 +3,13 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA4bgCnwm5VXAPH9jwaC4vLQ_kHJWNh5pc",
-  authDomain: "mytrip-c7a3e.firebaseapp.com",
-  databaseURL: "https://mytrip-c7a3e-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "mytrip-c7a3e",
-  storageBucket: "mytrip-c7a3e.firebasestorage.app",
-  messagingSenderId: "204406368125",
-  appId: "1:204406368125:web:6a7e34aecc102b0dae8e14",
-  measurementId: "G-FY4PNZ7PQB"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: "G-Z0SV6CMJVN"
 };
 
 const app = initializeApp(firebaseConfig);

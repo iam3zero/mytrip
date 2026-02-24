@@ -12,19 +12,19 @@
 @mixin button {
   padding: 12px 24px;
   border-radius: 8px;
-  background: $primary;
+  /* background: $primary; */
   color: white;
   border: none;
   cursor: pointer;
   transition: .3s;
 
   &:hover {
-    background: $primary-dark;
+    /* background: $primary-dark; */
   }
 }
 
 @mixin card {
   background: white;
-  border-radius: $radius;
-  box-shadow: $shadow;
+  /* border-radius: $radius; */
+  /* box-shadow: $shadow; */
 }
