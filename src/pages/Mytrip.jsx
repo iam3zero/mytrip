@@ -3,7 +3,7 @@ import { TripContext } from "../context/TripContext";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
-import "../styles/Mytrip.scss";
+import "../styles/mytrip.scss";
 
 const Mytrip = () => {
 
