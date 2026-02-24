@@ -167,7 +167,7 @@ const Community = () => {
 
   return (
     <div className="community-container">
-      <h1>Community</h1>
+      <h1>📍 Community</h1>
 
       {user && (
         <div className="write-box">

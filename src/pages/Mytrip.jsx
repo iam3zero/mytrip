@@ -25,12 +25,10 @@ const Mytrip = () => {
     return (
 
       <div className="mytrip-container">
-        <h1>My Trip</h1>
+        <h1>📍 My Trip</h1>
         <div className="empty-trip">
   
-          {/* <img src="/public/img/mytrip.jpg" /> */}
-  
-          <h2>로그인이 필요합니다</h2>
+          <h2>로그인이 필요합니다.</h2>
           <p>로그인 후 여행을 추가해보세요 ✈️</p>
   
           <Link to="/login" className="login-btn">
@@ -51,7 +49,7 @@ const Mytrip = () => {
     return (
 
       <div className="mytrip-container">
-        <h1>My Trip</h1>
+        <h1>📍 My Trip</h1>
         <div className="empty-trip">
   
           <h2>아직 저장된 여행이 없습니다.</h2>
