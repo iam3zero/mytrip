@@ -88,7 +88,7 @@ const Explore = () => {
         {
           name,
           country,
-          image: images[placeId] || "/img/no-image.jpg",
+          image: images[placeId] || `${import.meta.env.BASE_URL}img/no-image.jpg`,
           status: "planned",
           place_id: placeId,
           createdAt: new Date(),

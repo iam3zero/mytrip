@@ -20,7 +20,7 @@ export const fetchPlaceImage = async (query) => {
 
     // 이미지 없을 경우 대비
     if (res.data.results.length === 0) {
-      return "/img/no-image.jpg";
+      return `${import.meta.env.BASE_URL}img/no-image.jpg`;
     }
 
     return res.data.results[0].urls.small;

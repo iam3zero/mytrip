@@ -82,7 +82,11 @@ const Mytrip = () => {
 
             <Link to={`/explore/detail?pid=${trip.id}`}>
               <img
-                src={trip.image || "/img/no-image.jpg"}
+                src={
+                  trip.image?.startsWith("http")
+                    ? trip.image
+                    : `${import.meta.env.BASE_URL}img/no-image.jpg`
+                }
                 alt={trip.name}
               />
             </Link>

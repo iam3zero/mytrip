@@ -60,15 +60,15 @@ const Home = () => {
         modules={[Pagination, Navigation, Autoplay]}
         className="mySwiper"
       >
-        <SwiperSlide><img src="/img/main01.jpg" alt="mainslider01" /></SwiperSlide>
-        <SwiperSlide><img src="/img/main02.jpg" alt="mainslider02" /></SwiperSlide>
-        <SwiperSlide><img src="/img/main03.jpg" alt="mainslider03" /></SwiperSlide>
-        <SwiperSlide><img src="/img/main04.jpg" alt="mainslider04" /></SwiperSlide>
-        <SwiperSlide><img src="/img/main05.jpg" alt="mainslider05" /></SwiperSlide>
-        <SwiperSlide><img src="/img/main06.jpg" alt="mainslider06" /></SwiperSlide>
-        <SwiperSlide><img src="/img/main07.jpg" alt="mainslider07" /></SwiperSlide>
-        <SwiperSlide><img src="/img/main08.jpg" alt="mainslider08" /></SwiperSlide>
-        <SwiperSlide><img src="/img/main09.jpg" alt="mainslider09" /></SwiperSlide>
+        <SwiperSlide><img src="/mytrip/img/main01.jpg" alt="mainslider01" /></SwiperSlide>
+        <SwiperSlide><img src="/mytrip/img/main02.jpg" alt="mainslider02" /></SwiperSlide>
+        <SwiperSlide><img src="/mytrip/img/main03.jpg" alt="mainslider03" /></SwiperSlide>
+        <SwiperSlide><img src="/mytrip/img/main04.jpg" alt="mainslider04" /></SwiperSlide>
+        <SwiperSlide><img src="/mytrip/img/main05.jpg" alt="mainslider05" /></SwiperSlide>
+        <SwiperSlide><img src="/mytrip/img/main06.jpg" alt="mainslider06" /></SwiperSlide>
+        <SwiperSlide><img src="/mytrip/img/main07.jpg" alt="mainslider07" /></SwiperSlide>
+        <SwiperSlide><img src="/mytrip/img/main08.jpg" alt="mainslider08" /></SwiperSlide>
+        <SwiperSlide><img src="/mytrip/img/main09.jpg" alt="mainslider09" /></SwiperSlide>
       </Swiper>
 
       <h2>📍 추천 여행지</h2>

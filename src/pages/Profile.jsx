@@ -70,7 +70,14 @@ const Profile = () => {
           {trips.slice(0, 4).map((trip) => (
             <div key={trip.id} className="trip-card">
                 <Link to="/mytrip">
-                    <img src={trip.image} alt={trip.name} />
+                    <img
+                      src={
+                        trip.image?.startsWith("http")
+                          ? trip.image
+                          : `${import.meta.env.BASE_URL}img/no-image.jpg`
+                      }
+                      alt={trip.name}
+                    />
                 </Link>
               <p>{trip.name}</p>
             </div>
