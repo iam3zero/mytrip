@@ -4,6 +4,7 @@ import { TravelContext } from "../App";
 import { fetchPlaceImage } from "../api/unsplashApi";
 import { auth } from "../firebase";
 import { db } from "../firebase";
+import Loading from "../components/Loading";
 import {
   doc,
   setDoc,
@@ -63,7 +64,8 @@ const ExploreDetail = () => {
     return () => unsubscribe();
   }, [placeId]);
 
-  if (contextLoading || loading) return <p>로딩중...</p>;
+  if (loading || !Array.isArray(places)) {
+  return <Loading />;}
   if (!place) return <p>여행지 정보를 찾을 수 없습니다.</p>;
 
   const {
@@ -127,7 +129,7 @@ const ExploreDetail = () => {
       <ul className="info">
         {Array.isArray(categories) && (
           <li>
-            <strong>카테고리</strong>
+            <strong>• 카테고리</strong>
             <span>
               {categories
                 .map((c) => c.replaceAll(".", " · "))
@@ -138,14 +140,14 @@ const ExploreDetail = () => {
 
         {district && (
           <li>
-            <strong>지역</strong>
+            <strong>• 지역</strong>
             <span>{district}</span>
           </li>
         )}
 
         {(address_line1 || address_line2) && (
           <li>
-            <strong>주소</strong>
+            <strong>• 주소</strong>
             <span>
               {address_line1} {address_line2}
             </span>
@@ -154,7 +156,7 @@ const ExploreDetail = () => {
 
         {(city || country) && (
           <li>
-            <strong>위치</strong>
+            <strong>• 위치</strong>
             <span>
               {city} / {country}
             </span>
@@ -163,7 +165,7 @@ const ExploreDetail = () => {
 
         {website && (
           <li>
-            <strong>웹사이트</strong>
+            <strong>• 웹사이트</strong>
             <a href={website} target="_blank" rel="noopener noreferrer">
               {website}
             </a>

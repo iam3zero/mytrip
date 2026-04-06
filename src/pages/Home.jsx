@@ -3,6 +3,7 @@ import React, { useRef, useState, useContext, useEffect } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { fetchPlaceImage } from "../api/unsplashApi";
+import Loading from "../components/Loading";
 
 
 // Import Swiper styles
@@ -40,7 +41,7 @@ const Home = () => {
 }, [places]);
 
   if (loading || !Array.isArray(places)) {
-  return <p>로딩중...</p>;
+  return <Loading />;
 }
 
   return (
@@ -51,7 +52,7 @@ const Home = () => {
           type: 'fraction',
         }}
         autoplay={{
-          delay: 2500,
+          delay: 3000,
           disableOnInteraction: false,
         }}
         loop={true}
@@ -73,16 +74,18 @@ const Home = () => {
       <h2>📍 추천 여행지</h2>
       
       <ul className="list">
-         {places.map((item) => {
+         {places?.slice(0, 12).map((item) => {
           const name = item.properties.name;
 
           return (
             <li key={item.properties.place_id} className="place-card">
               <Link to={`/explore/detail?pid=${item.properties.place_id}`}>
-                <img
-                  src={images[name] || "/img/no-image.jpg"}
-                  alt={name}
-                />
+                <div className="img-wrap">
+                  <img
+                    src={images[name] || "/img/no-image.jpg"}
+                    alt={name}
+                  />
+                </div>
                 <h3>{name}</h3>
                 <p>{item.properties.opening_hours}</p>
               </Link>
@@ -90,6 +93,12 @@ const Home = () => {
           );
         })}
       </ul>
+
+      <div className="more-btn-wrap">
+        <Link to="/explore" className="more-btn" onClick={() => window.scrollTo(0, 0)}>
+          Explore 전체 여행지 탐색하기 ✈️
+        </Link>
+      </div>
     </div>
   );
 };

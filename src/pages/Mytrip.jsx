@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { TripContext } from "../context/TripContext";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
-
 import "../styles/mytrip.scss";
+import Loading from "../components/Loading";
 
 const Mytrip = () => {
 
@@ -14,9 +14,10 @@ const Mytrip = () => {
   // 🔥 Firestore 로딩중
   if (loading) {
 
-    return <h2>불러오는 중...</h2>;
+    return <Loading />;
 
   }
+  
 
 
   // 🔥 로그인 안된 경우
@@ -73,25 +74,27 @@ const Mytrip = () => {
 
       <ul className="trip-list">
 
-        {trips.map((trip) => (
+        {trips.map((trip) => {
 
+         
+          return(
           <li key={trip.id} className="trip-item">
 
-            <img
-              src={trip.image || "/public/img/no-image.jpg"}
-            />
+            <Link to={`/explore/detail?pid=${trip.id}`}>
+              <img
+                src={trip.image || "/img/no-image.jpg"}
+                alt={trip.name}
+              />
+            </Link>
 
             <div>
-
               <h3>{trip.name}</h3>
-
               <p>{trip.country}</p>
-
             </div>
 
           </li>
-
-        ))}
+        )
+        })}
 
       </ul>
 

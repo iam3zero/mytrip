@@ -8,24 +8,25 @@ header{
     h1{
         a{
             @include flex-center;
-            font-size: 40px;
-            color: $gray;
+            font-size: 34px;
+            color: $primary;
             span{
-                font-size: 30px;
-                color: #4da3ff;
-                padding-left: 10px;
+                font-size: 22px;
+                color: $primary;
+                padding-left: 5px;
                 font-family: "Luckiest Guy", cursive;
-                /* font-family: 'OneStoreMobileGothicTitleFont'; */
-                font-weight: 400}
+                font-weight: 400
+            }
         }
     }
     nav{
         ul{
             @include flex-center;
             gap: 20px;
+            margin-top: 15px;
             li{
                 a{
-                    font-weight: 300;
+                    font-weight: 200;
                     font-size: 14px;
                 }
             }
@@ -45,7 +46,8 @@ header{
             background: none;
             border: none;
             position: relative;
-            /* color: $primary; */
+            color: $primary;
+            cursor: pointer;
         }
         .in{
             display: flex;

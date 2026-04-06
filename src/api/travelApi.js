@@ -11,7 +11,7 @@ export const getTravelSpots = async () => {
         params: {
           categories: "tourism.attraction",
           filter: "circle:126.9780,37.5665,5000",
-          limit: 10,
+          limit: 36,
           apiKey: API_KEY,
         },
       }

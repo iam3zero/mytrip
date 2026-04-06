@@ -4,6 +4,7 @@ import { TravelContext } from "../App";
 import { fetchPlaceImage } from "../api/unsplashApi";
 import { auth } from "../firebase";
 import { db } from "../firebase";
+import Loading from "../components/Loading";
 import {
   doc,
   setDoc,
@@ -14,6 +15,7 @@ import {
 import "../styles/Home.scss";
 
 const Explore = () => {
+  const [visibleCount, setVisibleCount] = useState(12);
   const { places, loading } = useContext(TravelContext);
   const navigate = useNavigate();
 
@@ -63,7 +65,7 @@ const Explore = () => {
   }, []);
 
   if (loading || !Array.isArray(places)) {
-    return <p>로딩중...</p>;
+    return <Loading />;
   }
 
   // 🔥 찜하기
@@ -88,6 +90,7 @@ const Explore = () => {
           country,
           image: images[placeId] || "/img/no-image.jpg",
           status: "planned",
+          place_id: placeId,
           createdAt: new Date(),
         }
       );
@@ -115,18 +118,20 @@ const Explore = () => {
       <h2>📍 추천 여행지</h2>
 
       <ul className="list">
-        {places.map((place) => {
+        {places.slice(0, visibleCount).map((place) => {
           const placeId = place.properties.place_id;
           const name = place.properties.name;
           const isLiked = likedPlaces[placeId];
-
+         
           return (
             <li key={placeId} className="place-card">
               <Link to={`/explore/detail?pid=${placeId}`}>
-                <img
-                  src={images[placeId] || "/img/no-image.jpg"}
-                  alt={name}
-                />
+                <div className="img-wrap">
+                  <img
+                    src={images[placeId] || "/img/no-image.jpg"}
+                    alt={name}
+                  />
+                </div>
                 <h3>{name}</h3>
                 <p>{place.properties.opening_hours}</p>
               </Link>
@@ -150,6 +155,13 @@ const Explore = () => {
           );
         })}
       </ul>
+      {visibleCount < places.length && (
+        <div className="load-more">
+          <button onClick={() => setVisibleCount(prev => prev + 12)}>
+            여행지 더보기 ✈️
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -47,6 +47,7 @@
   margin-bottom: 8px;
   text-decoration: none;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .footer-links a:hover {
@@ -83,4 +84,46 @@
   border-top: 1px solid #ddd;
   color: #075985;
   background: rgb(194, 238, 255);
+}
+
+
+.modal{
+  position:fixed;
+  top:0;
+  left:0;
+    
+  width:100%;
+  height:100%;
+
+  background:rgba(0,0,0,0.6);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  z-index:999;
+}
+
+.modal-box{
+    background:#fff;
+    padding:40px 60px;
+    border-radius:10px;
+    text-align:center;
+    color: #333;
+  p{
+    margin-bottom:20px;
+  }
+
+  button{
+    border:none;
+    padding:8px 18px;
+    cursor:pointer;
+    border-radius: 5px;
+
+    &:hover{
+      background: #333;
+      color: #fff;
+      border-radius: 5px;
+    }
+  }
 }

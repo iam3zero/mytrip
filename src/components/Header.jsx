@@ -5,6 +5,7 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase"; // 네 firebase.js 경로 맞춰줘
 import '../styles/header.scss';
 import { PiHandWaving } from "react-icons/pi";
+import { PiAirplaneTiltDuotone } from "react-icons/pi";
 
 const Header = () => {
     const activeStyle = { color: '#3498db' };
@@ -31,7 +32,7 @@ const Header = () => {
         <header>
             <h1>
                 <Link to="/">
-                    <PiAirplaneTaxiingBold />
+                    <PiAirplaneTiltDuotone />
                     <span>TripMate</span>
                 </Link>
             </h1>

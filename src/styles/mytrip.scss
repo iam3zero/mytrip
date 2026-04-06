@@ -6,6 +6,7 @@
     width: 250px;
     opacity: 0.8;
     margin-bottom: 20px;
+    
   }
 
   h2 {
@@ -30,11 +31,13 @@
 .mytrip-container {
   position: relative;
   min-height: 90vh;
-  padding: 40px;
+  padding: 50px;
   background: url("/public/img/mytrip.jpg") center/cover no-repeat;
   h1{
-    
-    margin-bottom: 40px;
+    color:#ffffffd7;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #7e7e7e;
+    line-height: 2.3;
   }
   h3{margin-top: 20px;}
   p{margin-top: 10px;}
@@ -68,5 +71,14 @@
   li{
     width: 25%;
     padding: 15px;
+    transition: .3s ease;
+
+    &:hover{
+      opacity: .6;
+    }
+  }
+
+  img{
+    border-radius: 10px;
   }
 }
