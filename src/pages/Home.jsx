@@ -1,5 +1,6 @@
 import { TravelContext } from "../App";
 import React, { useRef, useState, useContext, useEffect } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { fetchPlaceImage } from "../api/unsplashApi";
@@ -15,11 +16,20 @@ import '../styles/Home.scss';
 
 // import required modules
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
-import {Link} from 'react-router-dom'
 
 const Home = () => {
   const { places, loading } = useContext(TravelContext);
   const [images, setImages] = useState({});
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+
+    if(!keyword.trim()) return;
+
+    navigate(`/explore?search=${encodeURIComponent(keyword)}`);
+
+  }
 
   useEffect(() => {
   if (!places || places.length === 0) return;
@@ -49,7 +59,7 @@ const Home = () => {
       {/* 메인 슬라이더 */}
       <Swiper
         pagination={{
-          type: 'fraction',
+          type: 'bullets',
         }}
         autoplay={{
           delay: 3000,
@@ -69,6 +79,35 @@ const Home = () => {
         <SwiperSlide><img src="/mytrip/img/main07.jpg" alt="mainslider07" /></SwiperSlide>
         <SwiperSlide><img src="/mytrip/img/main08.jpg" alt="mainslider08" /></SwiperSlide>
         <SwiperSlide><img src="/mytrip/img/main09.jpg" alt="mainslider09" /></SwiperSlide>
+
+        <div className="main-banner-content">
+          <span className="sub-title">
+            여행을 더 쉽고 더 스마트하게
+          </span>
+
+          <h1>
+            국내 여행의 모든 것,<br />
+            TripMate에서 시작하세요
+          </h1>
+
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="어디로 떠나고 싶으신가요?"
+              value={keyword}
+              onChange={(e)=>setKeyword(e.target.value)}
+              onKeyDown={(e)=>{
+                  if(e.key==="Enter"){
+                      handleSearch();
+                  }
+              }}
+          />
+
+            <button onClick={handleSearch}>
+            검색
+            </button>
+          </div>
+        </div>
       </Swiper>
 
       <h2>📍 추천 여행지</h2>

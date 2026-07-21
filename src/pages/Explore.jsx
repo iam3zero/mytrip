@@ -5,6 +5,7 @@ import { fetchPlaceImage } from "../api/unsplashApi";
 import { auth } from "../firebase";
 import { db } from "../firebase";
 import Loading from "../components/Loading";
+import { useSearchParams } from "react-router-dom";
 import {
   doc,
   setDoc,
@@ -22,7 +23,19 @@ const Explore = () => {
   const [images, setImages] = useState({});
   const [likedPlaces, setLikedPlaces] = useState({});
 
-  // 🔵 이미지 불러오기
+  const [searchParams] = useSearchParams();
+
+  const keyword = searchParams.get("search") || "";
+
+  const filteredPlaces = places.filter((place) => {
+    const name = place?.properties?.name;
+
+    if (typeof name !== "string") return false;
+
+    return name.toLowerCase().includes(keyword.toLowerCase());
+  });
+
+
   useEffect(() => {
     if (!places || places.length === 0) return;
 
@@ -115,10 +128,21 @@ const Explore = () => {
 
   return (
     <div className="home">
-      <h2>📍 추천 여행지</h2>
+      <h2>
+        {keyword
+          ? `"${keyword}" 검색 결과`
+          : "📍 추천 여행지"}
+      </h2>
 
+      {filteredPlaces.length === 0 ? (
+
+        <div className="no-result">
+            검색 결과가 없습니다 😢
+        </div>
+
+    ) : (
       <ul className="list">
-        {places.slice(0, visibleCount).map((place) => {
+        {filteredPlaces.slice(0, visibleCount).map((place)=>{
           const placeId = place.properties.place_id;
           const name = place.properties.name;
           const isLiked = likedPlaces[placeId];
@@ -128,7 +152,10 @@ const Explore = () => {
               <Link to={`/explore/detail?pid=${placeId}`}>
                 <div className="img-wrap">
                   <img
-                    src={images[placeId] || "/img/no-image.jpg"}
+                    src={
+                      images[placeId] ||
+                      `${import.meta.env.BASE_URL}img/no-image.jpg`
+                    }
                     alt={name}
                   />
                 </div>
@@ -155,7 +182,8 @@ const Explore = () => {
           );
         })}
       </ul>
-      {visibleCount < places.length && (
+      )}
+      {visibleCount < filteredPlaces.length && (
         <div className="load-more">
           <button onClick={() => setVisibleCount(prev => prev + 12)}>
             여행지 더보기 ✈️

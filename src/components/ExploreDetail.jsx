@@ -38,7 +38,10 @@ const ExploreDetail = () => {
 
   // 🔵 이미지 가져오기
   useEffect(() => {
-    if (!place?.properties?.name) return;
+    if (!place) {
+      setLoading(false);
+      return;
+    }
 
     const loadImage = async () => {
       const query = `${place.properties.name} ${place.properties.country}`;
