@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { PiAirplaneTaxiingBold } from "react-icons/pi";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../firebase"; // 네 firebase.js 경로 맞춰줘
+import { auth } from "../firebase";
 import '../styles/header.scss';
 import { PiHandWaving } from "react-icons/pi";
 import { PiAirplaneTiltDuotone } from "react-icons/pi";
 
 const Header = () => {
-    const activeStyle = { color: '#3498db' };
+    const activeStyle = { color: '#12B3C7', fontWeight: '500'};
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
@@ -30,45 +30,47 @@ const Header = () => {
 
     return (
         <header>
-            <h1>
-                <Link to="/">
-                    <PiAirplaneTiltDuotone />
-                    <span>TripMate</span>
-                </Link>
-            </h1>
-
-            <nav>
-                <ul>
-                    <li>
-                        <NavLink to="/" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/explore" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Explore</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/mytrip" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Mytrip</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/community" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Community</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/profile" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Profile</NavLink>
-                    </li>
-                </ul>
-            </nav>
-
-            <div className="loginWrap">
-                {user ? (
-                    <div className='in'>
-                    <p>{user.displayName || user.email}님 환영합니다! <PiHandWaving /></p>
-                    <button onClick={handleLogout} className='logoutBtn'> 로그아웃</button>
-                    </div>
-                ) : (
-                    <>
-                        <Link to="/login">로그인</Link>
-                        <Link to="/signup">회원가입</Link>
-                    </>
-                )}
+            <div className='header-inner'>
+                <h1>
+                    <Link to="/">
+                        <PiAirplaneTiltDuotone />
+                        <span>TripMate</span>
+                    </Link>
+                </h1>
+    
+                <nav>
+                    <ul>
+                        <li>
+                            <NavLink to="/" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Home</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/explore" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Explore</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/mytrip" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Mytrip</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/community" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Community</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/profile" style={({ isActive }) => (isActive ? activeStyle : undefined)}>Profile</NavLink>
+                        </li>
+                    </ul>
+                </nav>
+    
+                <div className="loginWrap">
+                    {user ? (
+                        <div className='in'>
+                        <p>{user.displayName || user.email}님 환영합니다<PiHandWaving /></p>
+                        <button onClick={handleLogout} className='logoutBtn'>로그아웃</button>
+                        </div>
+                    ) : (
+                        <>
+                            <Link to="/login">로그인</Link>
+                            <Link to="/signup" className='joinBtn'>회원가입</Link>
+                        </>
+                    )}
+                </div>
             </div>
         </header>
     );
