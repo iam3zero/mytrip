@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { fetchPlaceImage } from "../api/unsplashApi";
 import Loading from "../components/Loading";
+import HeroSearch from "../components/HeroSearch";
 
 
 // Import Swiper styles
@@ -20,14 +21,14 @@ import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 const Home = () => {
   const { places, loading } = useContext(TravelContext);
   const [images, setImages] = useState({});
-  const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
 
-  const handleSearch = () => {
+  const handleSearch = (text = search) => {
 
-    if(!keyword.trim()) return;
+    if (!text.trim()) return;
 
-    navigate(`/explore?search=${encodeURIComponent(keyword)}`);
+    navigate(`/explore?search=${encodeURIComponent(text)}`);
 
   }
 
@@ -57,58 +58,38 @@ const Home = () => {
   return (
     <div className="home">
       {/* 메인 슬라이더 */}
-      <Swiper
-        pagination={{
-          type: 'bullets',
-        }}
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: false,
-        }}
-        loop={true}
-        navigation={true}
-        modules={[Pagination, Navigation, Autoplay]}
-        className="mySwiper"
-      >
-        <SwiperSlide><img src="/mytrip/img/main01.jpg" alt="mainslider01" /></SwiperSlide>
-        <SwiperSlide><img src="/mytrip/img/main02.jpg" alt="mainslider02" /></SwiperSlide>
-        <SwiperSlide><img src="/mytrip/img/main03.jpg" alt="mainslider03" /></SwiperSlide>
-        <SwiperSlide><img src="/mytrip/img/main04.jpg" alt="mainslider04" /></SwiperSlide>
-        <SwiperSlide><img src="/mytrip/img/main05.jpg" alt="mainslider05" /></SwiperSlide>
-        <SwiperSlide><img src="/mytrip/img/main06.jpg" alt="mainslider06" /></SwiperSlide>
-        <SwiperSlide><img src="/mytrip/img/main07.jpg" alt="mainslider07" /></SwiperSlide>
-        <SwiperSlide><img src="/mytrip/img/main08.jpg" alt="mainslider08" /></SwiperSlide>
-        <SwiperSlide><img src="/mytrip/img/main09.jpg" alt="mainslider09" /></SwiperSlide>
-
-        <div className="main-banner-content">
-          <span className="sub-title">
-            여행을 더 쉽고 더 스마트하게
-          </span>
-
-          <h1>
-            국내 여행의 모든 것,<br />
-            TripMate에서 시작하세요
-          </h1>
-
-          <div className="search-box">
-            <input
-              type="text"
-              placeholder="어디로 떠나고 싶으신가요?"
-              value={keyword}
-              onChange={(e)=>setKeyword(e.target.value)}
-              onKeyDown={(e)=>{
-                  if(e.key==="Enter"){
-                      handleSearch();
-                  }
-              }}
-          />
-
-            <button onClick={handleSearch}>
-            검색
-            </button>
-          </div>
-        </div>
-      </Swiper>
+      <div className="hero">
+        <Swiper
+          pagination={{
+            type: 'bullets',
+          }}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          loop={true}
+          navigation={true}
+          modules={[Pagination, Navigation, Autoplay]}
+          className="mySwiper"
+        >
+          <SwiperSlide><img src="/mytrip/img/main01.jpg" alt="mainslider01" /></SwiperSlide>
+          <SwiperSlide><img src="/mytrip/img/main02.jpg" alt="mainslider02" /></SwiperSlide>
+          <SwiperSlide><img src="/mytrip/img/main03.jpg" alt="mainslider03" /></SwiperSlide>
+          <SwiperSlide><img src="/mytrip/img/main04.jpg" alt="mainslider04" /></SwiperSlide>
+          <SwiperSlide><img src="/mytrip/img/main05.jpg" alt="mainslider05" /></SwiperSlide>
+          <SwiperSlide><img src="/mytrip/img/main06.jpg" alt="mainslider06" /></SwiperSlide>
+          <SwiperSlide><img src="/mytrip/img/main07.jpg" alt="mainslider07" /></SwiperSlide>
+          <SwiperSlide><img src="/mytrip/img/main08.jpg" alt="mainslider08" /></SwiperSlide>
+          <SwiperSlide><img src="/mytrip/img/main09.jpg" alt="mainslider09" /></SwiperSlide>
+  
+        </Swiper>
+  
+        <HeroSearch
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onSearch={handleSearch}
+        />
+      </div>
 
       <h2>📍 추천 여행지</h2>
       

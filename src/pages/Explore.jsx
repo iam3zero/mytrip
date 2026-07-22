@@ -6,6 +6,7 @@ import { auth } from "../firebase";
 import { db } from "../firebase";
 import Loading from "../components/Loading";
 import { useSearchParams } from "react-router-dom";
+import { searchTravelSpots } from "../api/travelApi";
 import {
   doc,
   setDoc,
@@ -22,18 +23,42 @@ const Explore = () => {
 
   const [images, setImages] = useState({});
   const [likedPlaces, setLikedPlaces] = useState({});
+  const [results, setResults] = useState([]);
 
   const [searchParams] = useSearchParams();
 
   const keyword = searchParams.get("search") || "";
+    useEffect(() => {
 
-  const filteredPlaces = places.filter((place) => {
+    const loadSearch = async () => {
+
+      if (!keyword) {
+
+        setResults(places);
+
+        return;
+
+      }
+
+      const data = await searchTravelSpots(keyword);
+
+      console.log("검색 결과", data);
+
+      setResults(data);
+
+    };
+
+    loadSearch();
+
+  }, [keyword, places]);
+
+  /* const filteredPlaces = places.filter((place) => {
     const name = place?.properties?.name;
 
     if (typeof name !== "string") return false;
 
     return name.toLowerCase().includes(keyword.toLowerCase());
-  });
+  }); */
 
 
   useEffect(() => {
@@ -134,7 +159,7 @@ const Explore = () => {
           : "📍 추천 여행지"}
       </h2>
 
-      {filteredPlaces.length === 0 ? (
+      {results.length === 0 ? (
 
         <div className="no-result">
             검색 결과가 없습니다 😢
@@ -142,7 +167,7 @@ const Explore = () => {
 
     ) : (
       <ul className="list">
-        {filteredPlaces.slice(0, visibleCount).map((place)=>{
+        {results.slice(0, visibleCount).map((place)=>{
           const placeId = place.properties.place_id;
           const name = place.properties.name;
           const isLiked = likedPlaces[placeId];
@@ -183,7 +208,7 @@ const Explore = () => {
         })}
       </ul>
       )}
-      {visibleCount < filteredPlaces.length && (
+      {visibleCount < results.length && (
         <div className="load-more">
           <button onClick={() => setVisibleCount(prev => prev + 12)}>
             여행지 더보기 ✈️

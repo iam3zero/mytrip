@@ -114,7 +114,7 @@
 
 }
 
-.main-banner-content{
+/* .main-banner-content{
     position:absolute;
     left:50%;
     top:50%;
@@ -126,7 +126,7 @@
     z-index:10;
     opacity:0;
     animation: fadeUp .8s forwards;
-}
+} */
 
 
 .main-banner-content h1{
@@ -140,10 +140,9 @@
 }
 
 .swiper-button-prev, .swiper-button-next {
-    color: #ffffffad;
-    
-    
+    color: #ffffff;
 }
+
 .swiper-button-prev{
     padding-left: 10px;
 }
@@ -210,6 +209,83 @@
         }
     }
 }
+
+.hero .mySwiper{
+
+    height:100%;
+
+}
+
+.hero{
+
+    position:relative;
+
+    height: 90vh;
+
+    overflow: hidden;
+
+    .mySwiper{
+
+        &::after{
+
+            content:"";
+
+            position:absolute;
+
+            inset:0;
+
+            background:rgba(0,0,0,.35);
+
+            z-index:2;
+
+        }
+
+    }
+
+}
+
+.hero .swiper-slide img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+    animation: zoomHero 8s linear infinite;
+
+}
+
+
+
+@keyframes zoomHero{
+
+    from{
+
+        transform:scale(1);
+
+    }
+
+    to{
+
+        transform:scale(1.08);
+
+    }
+
+}
+
+.hero .swiper-slide {
+  position: relative;
+}
+
+.hero .swiper-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .25);
+}
+
+
+
 .btn{
     background: none;
     border: none;
