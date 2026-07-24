@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { searchTravelSpots } from "../api/travelApi";
 import { FiSearch } from "react-icons/fi";
 import "../styles/heroSearch.scss";
+import searchSuggestions from "../data/searchSuggestions";
 
 const keywords = [
   "경복궁",
@@ -13,13 +13,13 @@ const keywords = [
   "전주",
 ];
 
-const popularKeywords = [
-  "서울",
-  "부산",
-  "제주",
-  "강릉",
-  "여수",
-  "경주",
+const popularRegions = [
+  { label: "서울" },
+  { label: "부산" },
+  { label: "제주" },
+  { label: "강릉" },
+  { label: "여수" },
+  { label: "경주" },
 ];
 
 const HeroSearch = ({ value, onChange, onSearch }) => {
@@ -27,44 +27,63 @@ const HeroSearch = ({ value, onChange, onSearch }) => {
   const [placeholder, setPlaceholder] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
+  // placeholder 변경
   useEffect(() => {
+
     let index = 0;
 
     setPlaceholder(`🔍 ${keywords[0]}`);
 
     const interval = setInterval(() => {
+
       index = (index + 1) % keywords.length;
+
       setPlaceholder(`🔍 ${keywords[index]}`);
+
     }, 2500);
 
     return () => clearInterval(interval);
+
   }, []);
+
+
+
 
   useEffect(() => {
 
-    if (!value.trim()) {
-      setSuggestions([]);
-      return;
-    }
+  if (!value.trim()) {
+    setSuggestions([]);
+    return;
+  }
 
-    const timer = setTimeout(async () => {
+  const timer = setTimeout(() => {
 
-      const result = await searchTravelSpots(value);
+    const filtered = searchSuggestions
+      .filter((item) =>
+        item.includes(value)
+      )
+      .slice(0, 8);
 
-      console.log(result);
+    setSuggestions(filtered);
 
-      setSuggestions(result);
+  }, 80);
 
-    }, 300);
+  return () => clearTimeout(timer);
 
-    return () => clearTimeout(timer);
+}, [value]);
 
-  }, [value]);
+
 
   const handleKeyDown = (e) => {
+
     if (e.key === "Enter") {
+
       onSearch();
+
+      setSuggestions([]);
+
     }
+
   };
 
   return (
@@ -95,7 +114,10 @@ const HeroSearch = ({ value, onChange, onSearch }) => {
           onKeyDown={handleKeyDown}
         />
 
-        <button onClick={onSearch}>
+        <button onClick={() => {
+          onSearch();
+          setSuggestions([]);
+        }}>
           <FiSearch />
         </button>
 
@@ -105,22 +127,14 @@ const HeroSearch = ({ value, onChange, onSearch }) => {
 
         <ul className="search-dropdown">
 
-          {suggestions.map((item) => (
+          {suggestions.map((item)=>(
 
             <li
-              key={item.properties.place_id || item.properties.formatted}
-              onClick={() => onSearch(item.properties.formatted)}
-            >
-
-              <span>
-                📍 {item.properties.formatted}
-              </span>
-
-              <small>
-                {item.properties.city || ""}
-              </small>
-
-            </li>
+              key={item}
+              onClick={() => onSearch(item)}
+          >
+              {item}
+          </li>
 
           ))}
 
@@ -132,13 +146,15 @@ const HeroSearch = ({ value, onChange, onSearch }) => {
 
         <span>🔥 인기 검색어</span>
 
-        {popularKeywords.map((keyword) => (
+        {popularRegions.map((region) => (
+
           <button
-            key={keyword}
-            onClick={() => onSearch(keyword)}
+            key={region.label}
+            onClick={() => onSearch(region.label)}
           >
-            {keyword}
+            {region.label}
           </button>
+
         ))}
 
       </div>

@@ -1,25 +1,24 @@
 import axios from "axios";
 
 const API_KEY = "e5f133b293844ba595a7ce4a567f5e33";
-const BASE_URL = "https://api.geoapify.com/v2/places";
+const PLACES_URL = "https://api.geoapify.com/v2/places";
+const GEOCODE_URL = "https://api.geoapify.com/v1/geocode/search";
 
 /**
- * Home에서 사용하는 기본 관광지
- * (기존 함수 - App.jsx와 호환)
+ * Home 기본 관광지 (서울 중심)
  */
 export const getTravelSpots = async () => {
   try {
-    const res = await axios.get(BASE_URL, {
+    const res = await axios.get(PLACES_URL, {
       params: {
-        categories: "tourism.attraction",
+        categories: "tourism.attraction,entertainment,heritage,catering",
         filter: "circle:126.9780,37.5665,15000",
-        limit: 36,
-        apiKey: API_KEY,
+        limit: 12,
+        apiKey: "e5f133b293844ba595a7ce4a567f5e33",
       },
     });
 
     return res.data.features;
-
   } catch (err) {
     console.error(err);
     return [];
@@ -28,38 +27,34 @@ export const getTravelSpots = async () => {
 
 /**
  * 지역별 관광지 가져오기
- * ex)
- * getTravelSpotsByRegion(126.9780,37.5665)
+ * 예: 서울, 제주, 부산
  */
 export const getTravelSpotsByRegion = async (
   lon,
   lat,
-  radius = 15000,
-  limit = 12
+  radius = 30000,
+  limit = 24
 ) => {
-
   try {
-
-    const res = await axios.get(BASE_URL, {
+    const res = await axios.get(PLACES_URL, {
       params: {
         categories: "tourism.attraction",
         filter: `circle:${lon},${lat},${radius}`,
         limit,
-        apiKey: API_KEY,
+        apiKey: "e5f133b293844ba595a7ce4a567f5e33",
       },
     });
 
     return res.data.features;
-
   } catch (err) {
-
     console.error(err);
     return [];
   }
 };
 
 /**
- * 검색
+ * 전국 관광지 검색 (경복궁, 남산타워 등)
+ * Geocoding API 사용
  */
 export const searchTravelSpots = async (keyword) => {
 
@@ -67,12 +62,42 @@ export const searchTravelSpots = async (keyword) => {
 
   try {
 
-    const res = await axios.get(BASE_URL, {
+    const res = await axios.get(GEOCODE_URL, {
       params: {
-        categories: "tourism.attraction",
-        filter: "rect:124.5,33.0,132.0,39.0",
-        name: keyword,
-        limit: 30,
+        text: keyword,
+        lang: "ko",
+        limit: 10,
+        filter: "countrycode:kr",
+        apiKey: API_KEY,
+      },
+    });
+
+    console.log("Geoapify 응답", res.data);
+
+    return res.data.features || [];
+
+  } catch (err) {
+
+    console.error(err);
+    return [];
+
+  }
+
+};
+
+
+export const getSearchSuggestions = async (keyword) => {
+
+  if (!keyword.trim()) return [];
+
+  try {
+
+    const res = await axios.get(GEOCODE_URL, {
+      params: {
+        text: keyword,
+        lang: "ko",
+        filter: "countrycode:kr",
+        limit: 5,
         apiKey: API_KEY,
       },
     });

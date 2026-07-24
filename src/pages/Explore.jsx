@@ -6,7 +6,6 @@ import { auth } from "../firebase";
 import { db } from "../firebase";
 import Loading from "../components/Loading";
 import { useSearchParams } from "react-router-dom";
-import { searchTravelSpots } from "../api/travelApi";
 import {
   doc,
   setDoc,
@@ -14,6 +13,10 @@ import {
   onSnapshot,
   collection,
 } from "firebase/firestore";
+import {
+  searchTravelSpots,
+  getTravelSpotsByRegion
+} from '../api/travelApi';
 import "../styles/Home.scss";
 
 const Explore = () => {
@@ -23,34 +26,20 @@ const Explore = () => {
 
   const [images, setImages] = useState({});
   const [likedPlaces, setLikedPlaces] = useState({});
-  const [results, setResults] = useState([]);
+
 
   const [searchParams] = useSearchParams();
 
   const keyword = searchParams.get("search") || "";
-    useEffect(() => {
-
-    const loadSearch = async () => {
-
-      if (!keyword) {
-
-        setResults(places);
-
-        return;
-
-      }
-
-      const data = await searchTravelSpots(keyword);
-
-      console.log("검색 결과", data);
-
-      setResults(data);
-
-    };
-
-    loadSearch();
-
-  }, [keyword, places]);
+  const REGION_MAP = {
+    서울: { lon:126.9780, lat:37.5665 },
+    부산: { lon:129.0756, lat:35.1796 },
+    제주: { lon:126.5312, lat:33.4996 },
+    강릉: { lon:128.8761, lat:37.7519 },
+    여수: { lon:127.6622, lat:34.7604 },
+    경주: { lon:129.2247, lat:35.8562 },
+  };
+      
 
   /* const filteredPlaces = places.filter((place) => {
     const name = place?.properties?.name;
@@ -61,28 +50,60 @@ const Explore = () => {
   }); */
 
 
+  const [results, setResults] = useState([]);
+
   useEffect(() => {
-    if (!places || places.length === 0) return;
+    const loadResults = async () => {
 
-    const loadImages = async () => {
-      const imageMap = {};
-
-      for (const place of places) {
-        const name = place?.properties?.name;
-        const country = place?.properties?.country;
-
-        if (name) {
-          const query = `${name} ${country}`;
-          imageMap[place.properties.place_id] =
-            await fetchPlaceImage(query);
-        }
+      // 검색어 없으면 Home 데이터 사용
+      if (!keyword) {
+        setResults(places);
+        return;
       }
 
-      setImages(imageMap);
+      // 지역 버튼 클릭
+      if (REGION_MAP[keyword]) {
+        const { lon, lat } = REGION_MAP[keyword];
+
+        const data = await getTravelSpotsByRegion(
+          lon,
+          lat,
+          30000,
+          24
+        );
+
+        setResults(data);
+        return;
+      }
+
+      // 일반 검색 (경복궁 등)
+      const data = await searchTravelSpots(keyword);
+
+      // Geocoding 결과를 Explore 카드 형식으로 변환
+      const converted = data.map((item, index) => ({
+        properties: {
+          place_id: item.properties.place_id || index,
+          name:
+            item.properties.name ||
+            item.properties.address_line1 ||
+            item.properties.formatted.split(",")[0],
+
+          opening_hours:
+            item.properties.city ||
+            item.properties.state ||
+            item.properties.county ||
+            "",
+
+          country: item.properties.country,
+        },
+      }));
+
+      setResults(converted);
+
     };
 
-    loadImages();
-  }, [places]);
+    loadResults();
+  }, [keyword, places]);
 
   // 🔥 로그인한 유저의 찜 목록 실시간 구독
   useEffect(() => {

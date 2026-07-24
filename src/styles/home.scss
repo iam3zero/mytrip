@@ -213,14 +213,13 @@
 .hero .mySwiper{
 
     height:100%;
-
 }
 
 .hero{
 
     position:relative;
 
-    height: 90vh;
+    height: 94vh;
 
     overflow: hidden;
 
@@ -242,6 +241,12 @@
 
     }
 
+}
+
+.mySwiper .slide-item.active, 
+.mySwiper .swiper-slide-active, 
+.mySwiper .slick-current {
+  z-index: 10; /* 다음 슬라이드가 침범하지 못하도록 위로 올림 */
 }
 
 .hero .swiper-slide img{

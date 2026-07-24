@@ -60,6 +60,10 @@ const Home = () => {
       {/* 메인 슬라이더 */}
       <div className="hero">
         <Swiper
+          /* observer={true}
+          observeParents={true}
+          updateOnWindowResize={true}
+          onInit={(swiper)=>swiper.update()} */
           pagination={{
             type: 'bullets',
           }}

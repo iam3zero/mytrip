@@ -177,7 +177,7 @@
     top: 78%;
     left: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.678);
+    background: rgba(255, 255, 255, 0.938);
     color: #333;
     border-radius: 16px;
     overflow: hidden;
@@ -195,7 +195,7 @@
         border-radius: 10px; /* 막대 모서리 둥글게 */
 
         &:hover {
-        background: rgba(0, 0, 0, 0.6); /* 마우스 올렸을 때 더 짙어지게 */
+        background: rgba(0, 0, 0, 0.7); /* 마우스 올렸을 때 더 짙어지게 */
         }
     }
 
@@ -214,7 +214,7 @@
         font-size: 14px;
 
         &:hover {
-        background: #f5f7fb;
+        background: #ddd;
         }
 
         span {
