@@ -4,7 +4,13 @@
 header{
     /* padding: 20px 30px; */
     height: 60px;
+    width: 100%;
     background-color: $white;
+    /* background: transparent;
+    position: fixed;
+    top: 0;
+    left:0;
+    z-index: 99999999999; */
     border-bottom: 1px solid $light-gray;
 
     .header-inner{
@@ -27,7 +33,7 @@ header{
             color: $primary;
             span{
                 font-size: 20px;
-                color: $primary;
+                color: #333;
                 padding-left: 5px;
                 /* font-family: "Luckiest Guy", cursive; */
                 font-family: $font-main;
@@ -40,7 +46,9 @@ header{
         ul{
             @include flex-center;
             gap: 20px;
+            /* color: #fff; */
             /* margin-top: 15px; */
+            margin-left: 120px;
             li{
                 a{
                     font-weight: 200;
@@ -76,6 +84,7 @@ header{
         p{
             font-size: 13px;
             color: #333;
+            /* color: #fff; */
         }
         .logoutBtn{
             background: none;

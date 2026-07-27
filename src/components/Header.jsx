@@ -6,6 +6,7 @@ import { auth } from "../firebase";
 import '../styles/header.scss';
 import { PiHandWaving } from "react-icons/pi";
 import { PiAirplaneTiltDuotone } from "react-icons/pi";
+import { FaTrainSubway } from "react-icons/fa6";
 
 const Header = () => {
     const activeStyle = { color: '#12B3C7', fontWeight: '500'};
@@ -33,7 +34,8 @@ const Header = () => {
             <div className='header-inner'>
                 <h1>
                     <Link to="/">
-                        <PiAirplaneTiltDuotone />
+                       {/*  <PiAirplaneTiltDuotone /> */}
+                        <FaTrainSubway />
                         <span>TripMate</span>
                     </Link>
                 </h1>

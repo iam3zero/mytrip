@@ -90,7 +90,7 @@ const HeroSearch = ({ value, onChange, onSearch }) => {
     <section className="hero-search">
 
       <span className="hero-badge">
-        ✈️ 국내 여행을 쉽고 빠르게
+        🚂 국내 여행을 쉽고 빠르게
       </span>
 
       <h1>
