@@ -140,6 +140,15 @@
 }
 
 .swiper-button-prev, .swiper-button-next {
+    color: #ffffff7e;
+    transition: .3s ease;
+}
+
+.swiper-button-prev:hover {
+    color: #ffffff;
+}
+
+.swiper-button-next:hover {
     color: #ffffff;
 }
 
